@@ -1,0 +1,1 @@
+CREATE DATABASE sr_group_02_spring_mini_project

@@ -10,5 +10,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/v1/files")
 public class AppFileController {
   private final AppFileService appFileService;
-
 }
