@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @RequestMapping("api/v1/files")
 public class AppFileController {
-  private final AppFileService appFileService;
+//  private final AppFileService appFileService;
 
 }
