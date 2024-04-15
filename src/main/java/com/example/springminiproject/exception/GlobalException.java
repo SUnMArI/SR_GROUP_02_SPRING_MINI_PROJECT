@@ -26,7 +26,16 @@ public class GlobalException {
         problemDetail.setProperty("time", LocalDateTime.now());
         return problemDetail;
     }
-
+    @ExceptionHandler(PasswordException.class)
+    public ProblemDetail handlePasswordException(PasswordException passwordException){
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+                HttpStatus.BAD_REQUEST,
+                passwordException.getMessage()
+        );
+        problemDetail.setTitle("Bad Request");
+        problemDetail.setProperty("time", LocalDateTime.now());
+        return problemDetail;
+    }
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ProblemDetail handleMethodArgumentNotValidException(MethodArgumentNotValidException ex){
         Map<String, String> errors = new HashMap<>();
@@ -37,6 +46,7 @@ public class GlobalException {
         problemDetail.setTitle("Bad Request");
         problemDetail.setProperty("Errors:",errors);
         return  problemDetail;
+
     }
     @ExceptionHandler(HandlerMethodValidationException.class)
     public ProblemDetail handleMethodValidationException(HandlerMethodValidationException ex){
@@ -52,7 +62,6 @@ public class GlobalException {
         problemDetail.setProperty("Errors:",errors);
         return  problemDetail;
     }
-
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<BadRequestBodyException> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex, HttpServletRequest request) {
         BadRequestBodyException errorResponse = new BadRequestBodyException();
@@ -62,5 +71,16 @@ public class GlobalException {
         errorResponse.setMessage("Bad request body");
         errorResponse.setPath(request.getRequestURI());
         return ResponseEntity.badRequest().body(errorResponse);
+    }
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<Object> handleValidationException(com.example.springminiproject.exception.ValidationException ex){
+        Map<String, Object> response = new HashMap<>();
+        response.put("type", "about:blank");
+        response.put("title", "Bad Request");
+        response.put("status", ex.getStatus().value());
+        response.put("detail", ex.getDetail());
+        response.put("instance", "/api/v1/auth/register");
+        response.put("errors", ex.getErrors());
+        return ResponseEntity.badRequest().body(response);
     }
 }

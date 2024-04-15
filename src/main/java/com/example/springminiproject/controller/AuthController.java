@@ -1,14 +1,12 @@
 package com.example.springminiproject.controller;
 
 import com.example.springminiproject.model.dto.request.AppUserRequest;
-import com.example.springminiproject.model.dto.response.AppUserResponse;
 import com.example.springminiproject.service.AuthService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
@@ -16,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     private final AuthService authService;
 
-    @GetMapping("/register")
-    public ResponseEntity<AppUserResponse> register(@RequestBody AppUserRequest appUserRequest){
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody @Valid AppUserRequest appUserRequest) throws NotFoundException {
         return ResponseEntity.ok(authService.register(appUserRequest));
     }
 }
