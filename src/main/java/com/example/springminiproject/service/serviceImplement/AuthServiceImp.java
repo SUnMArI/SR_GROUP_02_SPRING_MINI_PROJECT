@@ -22,8 +22,13 @@ public class AuthServiceImp implements AuthService {
     private final AuthRepository authRepository;
 //    private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ModelMapper modelMapper;
+
     @Override
     public AppUserResponse register(AppUserRequest appUserRequest){
+        Boolean duplicate = authRepository.duplicateEmail(appUserRequest.getEmail());
+//        if(duplicate){
+//            return "";
+//        }
         if(!appUserRequest.getPassword().equals(appUserRequest.getConfirmPassword())){
             throw new PasswordException("Your confirm password does not match with your password");
         }

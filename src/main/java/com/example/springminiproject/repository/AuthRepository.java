@@ -20,4 +20,9 @@ public interface AuthRepository {
         INSERT INTO users VALUES (default,#{user.email},#{user.password},#{user.profileImage}) RETURNING *
     """)
     AppUserResponse register(@Param("user") AppUserRequest appUserRequest);
+
+    @Select("""
+        SELECT * FROM users WHERE email = #{email}
+    """)
+    Boolean duplicateEmail(String email);
 }

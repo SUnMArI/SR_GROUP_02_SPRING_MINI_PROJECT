@@ -1,6 +1,7 @@
 package com.example.springminiproject.controller;
 
 import com.example.springminiproject.model.dto.request.AppUserRequest;
+import com.example.springminiproject.model.dto.request.PasswordRequest;
 import com.example.springminiproject.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
