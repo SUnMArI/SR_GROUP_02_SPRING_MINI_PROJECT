@@ -4,12 +4,16 @@ import com.example.springminiproject.exception.PasswordException;
 import com.example.springminiproject.exception.ValidationException;
 import com.example.springminiproject.model.dto.request.AppUserRequest;
 import com.example.springminiproject.model.dto.response.AppUserResponse;
+import com.example.springminiproject.model.Auth;
+import com.example.springminiproject.model.CustomUserDetail;
 import com.example.springminiproject.repository.AuthRepository;
 import com.example.springminiproject.service.AuthService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.http.HttpStatus;
+import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -48,6 +52,14 @@ public class AuthServiceImp implements AuthService {
             throw new ValidationException(HttpStatus.BAD_REQUEST, "Validate Invalid", errors);
         }
     }
+    private final ModelMapper modelMapper;
+    @Override
+    public UserDetails loadUserByUsername(String email) {
+        Auth auth= authRepository.getUserByEmail(email);
+        System.out.println("auth"+auth.toString());
+        return modelMapper.map(auth, CustomUserDetail.class);
+    }
+
 }
 
 
