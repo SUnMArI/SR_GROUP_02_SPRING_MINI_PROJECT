@@ -3,7 +3,6 @@ package com.example.springminiproject.controller;
 import com.example.springminiproject.exception.NotFoundException;
 import com.example.springminiproject.jwt.JwtService;
 import com.example.springminiproject.model.dto.request.AuthRequest;
-import com.example.springminiproject.model.dto.response.ApiResponse;
 import com.example.springminiproject.model.dto.response.AuthResponse;
 import com.example.springminiproject.service.AuthService;
 import lombok.AllArgsConstructor;

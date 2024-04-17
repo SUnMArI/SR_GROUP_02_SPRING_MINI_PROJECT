@@ -29,7 +29,6 @@ public class SecurityConfig {
     AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
     }
-    // this provider specifies the user details service and password encoder for authentication.
     @Bean
     DaoAuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
