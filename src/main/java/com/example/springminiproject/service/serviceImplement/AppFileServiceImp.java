@@ -18,7 +18,6 @@ import java.util.UUID;
 @Service
 @AllArgsConstructor
 public class AppFileServiceImp implements AppFileService {
-    private final AppFileRepository appFileRepository;
     private final Path path = Paths.get("src/main/resources/images");
     @Override
     public String fileUpload(MultipartFile file) throws IOException {

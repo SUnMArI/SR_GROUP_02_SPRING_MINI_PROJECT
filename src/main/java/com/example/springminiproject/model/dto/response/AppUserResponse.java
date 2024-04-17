@@ -10,7 +10,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AppUserResponse{
-    private UUID userId;
+    private Integer userId;
     private String email;
     private String profileImage;
 }
