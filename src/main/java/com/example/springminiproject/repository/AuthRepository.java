@@ -1,21 +1,15 @@
 package com.example.springminiproject.repository;
 
-import com.example.springminiproject.exception.UUIDTypeHandler;
+import com.example.springminiproject.model.User;
 import com.example.springminiproject.model.dto.request.AppUserRequest;
 import com.example.springminiproject.model.dto.response.AppUserResponse;
 import org.apache.ibatis.annotations.*;
-
-import java.util.UUID;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Select;
-
 
 @Mapper
 public interface AuthRepository {
     @Results(
             id = "userMapper" , value = {
-                @Result(property = "userId",column = "user_id"),
+                @Result(property = "user",column = "user_id"),
                 @Result(property = "profileImage",column = "profile_image"),
             }
     )
@@ -27,6 +21,14 @@ public interface AuthRepository {
     @Select("""
         SELECT * FROM users WHERE email = #{email}
     """)
-    Boolean duplicateEmail(String email);
+    @Result(property = "userId",column = "user_id")
+    User getUserByEmail(String email);
 
+    @Select("""
+        SELECT * FROM users WHERE user_id = #{userId}
+    """)
+    @Result(property = "userId",column = "user_id")
+    @Result(property = "email",column = "email")
+    @Result(property = "profileImage",column = "profile_image")
+    AppUserResponse getUserById(@Param("uerId") Integer userId);
 }
