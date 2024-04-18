@@ -20,7 +20,6 @@ import java.io.IOException;
 
 @RequestMapping("/api/v1/files")
 public class AppFileController {
-  private final AppFileService appFileService;
 
     public AppFileController(AppFileService appFileService) {
         this.appFileService = appFileService;

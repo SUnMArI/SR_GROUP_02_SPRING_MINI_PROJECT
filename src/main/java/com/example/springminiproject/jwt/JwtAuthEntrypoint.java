@@ -10,6 +10,7 @@ import java.io.IOException;
 
 @Component
 public class JwtAuthEntrypoint implements AuthenticationEntryPoint {
+
     @Override
     public void commence(HttpServletRequest request,
                          HttpServletResponse response,
@@ -17,3 +18,4 @@ public class JwtAuthEntrypoint implements AuthenticationEntryPoint {
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
     }
 }
+
