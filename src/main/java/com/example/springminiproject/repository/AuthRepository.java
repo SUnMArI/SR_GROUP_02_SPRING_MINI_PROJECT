@@ -14,4 +14,11 @@ public interface AuthRepository {
     @Result(property = "userId",column = "user_id")
     @Result(property = "profileImage",column = "profile_image")
     User getUserByEmail(String email);
+
+    @Select("""
+    SELECT * FROM users WHERE user_id = #{id}
+""")
+    @Result(property = "userId",column = "user_id")
+    @Result(property = "profileImage",column = "profile_image")
+    User getUserByID(int id);
 }

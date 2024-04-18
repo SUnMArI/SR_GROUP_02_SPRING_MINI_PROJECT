@@ -1,5 +1,6 @@
 package com.example.springminiproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,32 +17,32 @@ public class User implements UserDetails {
     private String email;
     private String password;
     private String profileImage;
-
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
     }
-
+    @JsonIgnore
     @Override
     public String getUsername() {
         return email;
     }
-
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
-
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
-
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
-
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return true;

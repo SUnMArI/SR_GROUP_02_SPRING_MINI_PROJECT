@@ -14,7 +14,9 @@ CREATE TABLE IF NOT EXISTS otps_tb(
     user_id INT REFERENCES user_tb(user_id) ON DELETE CASCADE ON UPDATE CASCADE
     );
 
+INSERT INTO Categories(name,description,user_id) VALUES ('user','user12',2) RETURNING *;
 
+SELECT user_id FROM Categories WHERE user_id =2 ;
 
 
 

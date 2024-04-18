@@ -6,7 +6,7 @@ import com.example.springminiproject.model.request.CategoryRequest;
 import java.util.List;
 
 public interface CategoryService {
-    List<Category> getAllCategory();
+    List<Category> getAllCategory(Integer offset,Integer limit);
 
     Category getcategoryById(Integer id);
 

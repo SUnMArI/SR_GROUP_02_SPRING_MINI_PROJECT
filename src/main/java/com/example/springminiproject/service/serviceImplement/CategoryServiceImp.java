@@ -1,5 +1,6 @@
 package com.example.springminiproject.service.serviceImplement;
 
+import com.example.springminiproject.exception.NotFoundException;
 import com.example.springminiproject.model.Category;
 import com.example.springminiproject.model.request.CategoryRequest;
 import com.example.springminiproject.repository.CategoryRepository;
@@ -13,19 +14,22 @@ import java.util.List;
 @Service
 public class CategoryServiceImp implements CategoryService {
     private final CategoryRepository categoryRepository;
-
     @Override
-    public List<Category> getAllCategory() {
-        return categoryRepository.getAllCategory();
+    public List<Category> getAllCategory(Integer offset,Integer limit ) {
+        offset=(offset-1)*limit;
+        return categoryRepository.getAllCategory(offset,limit);
     }
-
     @Override
     public Category getcategoryById(Integer id) {
-        return categoryRepository.getcategoryById(id);
+        int userId=2;
+        Category category =categoryRepository.getCategoryById(id,userId);
+        if (category==null){
+            throw new NotFoundException("The category id "+id+" has not been founded.");
+        }
+        return category;
     }
-
     @Override
     public Category insertCategory(CategoryRequest categoryRequest) {
-        return categoryRepository.insertCategory(categoryRequest);
+        return categoryRepository.insertCategory(categoryRequest,2);
     }
 }
