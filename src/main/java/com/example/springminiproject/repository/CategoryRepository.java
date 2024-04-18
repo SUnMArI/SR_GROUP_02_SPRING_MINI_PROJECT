@@ -24,8 +24,19 @@ public interface CategoryRepository {
      Category getCategoryById(Integer id);
 
      @Select("""
-        INSERT INTO Categories VALUES (default,#{category.name},#{category.description},11) RETURNING *
+        INSERT INTO Categories VALUES (default,#{category.name},#{category.description},#{userId}) RETURNING *
      """)
      @ResultMap("ResultMapper")
-    Category insertCategory(@Param("category") CategoryRequest categoryRequest);
+    Category insertCategory(@Param("category") CategoryRequest categoryRequest,Integer userId);
+
+     @Select("""
+        UPDATE Categories SET name = #{category.name}, description = #{category.description},user_id =  #{userId} WHERE category_id = #{id} RETURNING *      
+    """)
+     @ResultMap("ResultMapper")
+    Category updateCategory(Integer id,@Param("category") CategoryRequest categoryRequest,Integer userId);
+
+     @Delete("""
+        DELETE FROM categories WHERE category_id = #{id}
+    """)
+    Boolean deleteCategory(Integer id);
 }

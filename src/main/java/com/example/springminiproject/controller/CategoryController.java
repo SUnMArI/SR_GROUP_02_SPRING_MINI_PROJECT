@@ -2,12 +2,18 @@ package com.example.springminiproject.controller;
 
 import com.example.springminiproject.model.Category;
 import com.example.springminiproject.model.dto.request.CategoryRequest;
+import com.example.springminiproject.model.dto.response.ApiResponse;
 import com.example.springminiproject.service.CategoryService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -19,17 +25,55 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
     @GetMapping
-    public List<Category> getAllCategory(){
-        return categoryService.getAllCategory();
+    public ResponseEntity<ApiResponse<List<Category>>> getAllCategory(){
+        ApiResponse<List<Category>> apiResponse = ApiResponse.<List<Category>>builder()
+                .message("All Category has founded")
+                .payload(categoryService.getAllCategory())
+                .httpStatus(HttpStatus.OK)
+                .dateFormat(LocalDateTime.now())
+                .build();
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
     @GetMapping("/{id}")
-    public Category getCategoryById(@PathVariable Integer id){
-        return categoryService.getCategoryById(id);
+    public ResponseEntity<ApiResponse<Category>> getCategoryById(@PathVariable @Positive Integer id){
+        ApiResponse<Category> apiResponse = ApiResponse.<Category>builder()
+                .message("Category ID "+id+" has founded")
+                .payload(categoryService.getCategoryById(id))
+                .httpStatus(HttpStatus.OK)
+                .dateFormat(LocalDateTime.now())
+                .build();
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
     @PostMapping
-    public Category insertCategory(@RequestBody CategoryRequest categoryRequest){
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(userDetails.getUsername());
-        return categoryService.insertCategory(categoryRequest);
+    public ResponseEntity<ApiResponse<Category>> insertCategory(@RequestBody @Valid CategoryRequest categoryRequest){
+        ApiResponse<Category> apiResponse = ApiResponse.<Category>builder()
+                .message("Category created successfully")
+                .payload(categoryService.insertCategory(categoryRequest))
+                .httpStatus(HttpStatus.OK)
+                .dateFormat(LocalDateTime.now())
+                .build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse<Category>> updateCategory(@PathVariable @Positive Integer id,@RequestBody @Valid CategoryRequest categoryRequest){
+        ApiResponse<Category> apiResponse = ApiResponse.<Category>builder()
+                .message("Category ID "+id+" has updated successfully")
+                .payload(categoryService.updateCategory(id,categoryRequest))
+                .httpStatus(HttpStatus.OK)
+                .dateFormat(LocalDateTime.now())
+                .build();
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<?>> deleteCategory(@PathVariable @Positive Integer id){
+        ApiResponse<?> apiResponse = ApiResponse.builder()
+                .message("Category ID "+id+" has deleted successfully")
+                .payload(categoryService.deleteCategory(id))
+                .httpStatus(HttpStatus.OK)
+                .dateFormat(LocalDateTime.now())
+                .build();
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 }

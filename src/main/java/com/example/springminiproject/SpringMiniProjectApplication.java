@@ -9,6 +9,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
+@OpenAPIDefinition(
+		info = @Info(
+				title = "Spring Mini Project Group 2",
+				version = "v1",
+				description = "Mini Project Spring"
+		)
+)
 @SecurityScheme(
 		name = "bearerAuth",
 		type = SecuritySchemeType.HTTP,
