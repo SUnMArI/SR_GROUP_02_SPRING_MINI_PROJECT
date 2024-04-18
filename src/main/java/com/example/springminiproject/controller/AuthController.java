@@ -18,8 +18,13 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/api/v1/auth/resend")
-    public UserResponse findUserEmail(@RequestParam String email){
+    public UserResponse resendCode(@RequestParam String email){
         return authService.findUserEmail(email);
     }
+//
+//    @PutMapping("/api/v1/auth/verify")
+//    public UserResponse response(@RequestParam String opt_code){
+//        return authService.findOtpCode(opt_code);
+//    }
 
 }

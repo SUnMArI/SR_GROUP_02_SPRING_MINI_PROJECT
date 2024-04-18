@@ -6,5 +6,7 @@ public interface AuthService {
 
     UserResponse findUserEmail(String email);
 
+//    UserResponse findOtpCode(String opt_code);
+
 
 }

@@ -23,7 +23,7 @@ CREATE TABLE Categories(
                            name VARCHAR(50) NOT NULL ,
                            description TEXT,
                            user_id INT,
-                           CONSTRAINT users_fk FOREIGN KEY (user_id) REFERENCES Categories(category_id)
+                           CONSTRAINT users_fk FOREIGN KEY (user_id) REFERENCES Users(user_id)
                                ON UPDATE CASCADE ON DELETE SET NULL
 );
 
@@ -38,3 +38,12 @@ CREATE TABLE Expenses(
                          CONSTRAINT FK_user_id_Expense_db FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE ,
                          CONSTRAINT Fk_category_id_Expense_db FOREIGN KEY (category_id) REFERENCES Categories(category_id) ON DELETE  CASCADE
 );
+
+
+
+DELETE FROM categories WHERE category_id = 2;
+
+select * from Categories where category_id=3 AND user_id=3;
+
+SELECT * FROM categories WHERE category_id =5
+DELETE FROM categories WHERE category_id =4 ;
