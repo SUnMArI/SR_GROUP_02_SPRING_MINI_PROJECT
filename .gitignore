@@ -34,4 +34,6 @@ build/
 
 
 # SRC #
-/src/main/resources/**
+/src/main/resources/application.properties
+/src/main/resources/images/**
+/src/main/resources/Script/**
