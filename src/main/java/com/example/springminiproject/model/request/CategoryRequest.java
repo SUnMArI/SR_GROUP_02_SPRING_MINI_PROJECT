@@ -1,4 +1,4 @@
-package com.example.springminiproject.model;
+package com.example.springminiproject.model.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Category {
-    private Integer categoryId;
+public class CategoryRequest {
     private String name;
     private String description;
-    private User user;
 }
