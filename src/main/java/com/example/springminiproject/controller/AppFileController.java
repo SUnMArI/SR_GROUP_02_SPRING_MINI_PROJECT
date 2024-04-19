@@ -3,9 +3,6 @@ package com.example.springminiproject.controller;
 import com.example.springminiproject.model.response.ApiResponse;
 import com.example.springminiproject.model.response.AppFileResponse;
 import com.example.springminiproject.service.AppFileService;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import io.swagger.v3.oas.annotations.security.SecurityScheme;
-import lombok.AllArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,7 +17,7 @@ import java.io.IOException;
 
 @RequestMapping("/api/v1/files")
 public class AppFileController {
-
+    private final AppFileService appFileService;
     public AppFileController(AppFileService appFileService) {
         this.appFileService = appFileService;
     }

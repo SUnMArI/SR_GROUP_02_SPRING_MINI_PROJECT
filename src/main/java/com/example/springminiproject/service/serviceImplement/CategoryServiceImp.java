@@ -1,6 +1,6 @@
 package com.example.springminiproject.service.serviceImplement;
 
-import com.example.springminiproject.model.Category;
+import com.example.springminiproject.model.dto.Category;
 import com.example.springminiproject.model.request.CategoryRequest;
 import com.example.springminiproject.repository.CategoryRepository;
 import com.example.springminiproject.service.CategoryService;
