@@ -1,6 +1,5 @@
 package com.example.springminiproject.service.serviceImplement;
 
-import com.example.springminiproject.repository.AppFileRepository;
 import com.example.springminiproject.service.AppFileService;
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
