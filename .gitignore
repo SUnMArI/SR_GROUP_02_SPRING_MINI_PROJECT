@@ -5,7 +5,7 @@ target/
 # SRC #
 /src/main/resources/application.properties
 /src/main/resources/images/
-/src/main/resources/Script/
+/src/main/resources/script/
 ### STS ###
 .apt_generated
 .classpath

@@ -3,7 +3,7 @@ CREATE TABLE users(
                       email VARCHAR(100),
                       password VARCHAR(100),
                       profile_image VARCHAR(100)
-)
+);
 
 CREATE TABLE Otps (
                       opt_id SERIAL  PRIMARY KEY,
@@ -13,7 +13,7 @@ CREATE TABLE Otps (
                       verify BOOLEAN,
                       user_id INT ,
                       CONSTRAINT fk_userID_otps_tb FOREIGN KEY (user_id) REFERENCES users (user_id) ON UPDATE CASCADE ON DELETE SET NULL
-)
+);
 
 CREATE TABLE Categories (
                             category_id SERIAL  PRIMARY KEY,
@@ -21,7 +21,7 @@ CREATE TABLE Categories (
                             description TEXT ,
                             user_id INT ,
                             CONSTRAINT fk_userID_otps_tb FOREIGN KEY (user_id) REFERENCES users (user_id) ON UPDATE CASCADE ON DELETE SET NULL
-)
+);
 
 CREATE TABLE Expenses(
                          expense_id SERIAL  PRIMARY KEY,
@@ -32,7 +32,7 @@ CREATE TABLE Expenses(
                          category_id INT,
                          CONSTRAINT fk_userId_Expenses_tb FOREIGN KEY(user_id) REFERENCES users(user_id) ON UPDATE CASCADE ON DELETE SET NULL,
                          CONSTRAINT fk_category_Expenses_tb FOREIGN KEY(category_id) REFERENCES categories(category_id) ON UPDATE CASCADE ON DELETE CASCADE
-)
+);
 
 
 
