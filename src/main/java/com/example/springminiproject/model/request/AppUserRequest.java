@@ -15,9 +15,8 @@ public class AppUserRequest {
 
     @NotBlank
     @NotNull
-    @Size(min = 6)
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
-            message = "confirm password must be at least 8 characters long and include both letters and numbers and special character")
+            message = "password must be at least 8 characters long and include both letters and numbers and special character")
     private String password;
 
     @NotBlank

@@ -4,6 +4,7 @@ import com.example.springminiproject.model.dto.Otps;
 import org.apache.ibatis.annotations.*;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Mapper
 public interface OtpRepository {
@@ -26,7 +27,7 @@ public interface OtpRepository {
     void setVerify(boolean b, Integer otpCode);
 
     @Insert("""
-    INSERT INTO otps (otp_code,issued_at,expiration,verify,user_id) VALUES (#{otpCode},#{issuedAt},#{expiration}, #{b},#{userId})
+    INSERT INTO otps (otp_code,issued_at,expiration,verify,user_id) VALUES (#{otpCode},#{issuedAt},#{expiration}, #{b},CAST(#{userId} AS UUID))
 """)
-    void insert(Integer otpCode,  LocalDateTime issuedAt, LocalDateTime expiration, boolean b, Integer userId);
+    void insert(Integer otpCode,  LocalDateTime issuedAt, LocalDateTime expiration, boolean b, UUID userId);
 }

@@ -26,7 +26,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 @RestController
-@SecurityRequirement(name = "bearerAuth")
 @AllArgsConstructor
 @RequestMapping("api/v1/files")
 public class AppFileController {

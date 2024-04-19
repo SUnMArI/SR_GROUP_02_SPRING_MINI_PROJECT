@@ -60,7 +60,17 @@ public class AuthServiceImp implements AuthService {
             appUserRequest.setPassword(bCryptPasswordEncoder.encode(
                     appUserRequest.getPassword()
             ));
-            return authRepository.register(appUserRequest);
+             AppUserResponse response=  authRepository.register(appUserRequest);
+            Random random = new Random();
+            Integer otpCode = random.nextInt(999999);
+            try {
+                emailService.send(appUserRequest.getEmail(), String.valueOf(otpCode));
+                otpRepository.insert(otpCode,LocalDateTime.now(),LocalDateTime.now().plusMinutes(1),false,response.getUserId());
+            }catch (MessagingException | UnsupportedEncodingException | MailSendException e){
+                System.out.println(e.getMessage());
+            }
+
+            return response;
         }else{
             Map<String, String> errors = new HashMap<>();
             errors.put("profileImage", "profile must be contain file extension such as jpg, png, gif, and bmp only");
