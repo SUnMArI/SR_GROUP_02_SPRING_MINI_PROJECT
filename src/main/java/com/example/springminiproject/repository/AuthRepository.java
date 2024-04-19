@@ -1,9 +1,9 @@
 package com.example.springminiproject.repository;
 
 import com.example.springminiproject.exception.UUIDTypeHandler;
-import com.example.springminiproject.model.User;
-import com.example.springminiproject.model.dto.request.AppUserRequest;
-import com.example.springminiproject.model.dto.response.AppUserResponse;
+import com.example.springminiproject.model.dto.User;
+import com.example.springminiproject.model.request.AppUserRequest;
+import com.example.springminiproject.model.response.AppUserResponse;
 import org.apache.ibatis.annotations.*;
 
 import java.util.UUID;

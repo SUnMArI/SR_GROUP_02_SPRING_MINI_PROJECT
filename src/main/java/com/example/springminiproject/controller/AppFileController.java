@@ -1,7 +1,6 @@
 package com.example.springminiproject.controller;
 
-import com.example.springminiproject.model.File;
-import com.example.springminiproject.model.dto.response.ApiResponse;
+import com.example.springminiproject.model.dto.File;
 import com.example.springminiproject.service.AppFileService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 @RestController
 @SecurityRequirement(name = "bearerAuth")

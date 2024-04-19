@@ -1,4 +1,4 @@
-package com.example.springminiproject.model.dto.request;
+package com.example.springminiproject.model.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

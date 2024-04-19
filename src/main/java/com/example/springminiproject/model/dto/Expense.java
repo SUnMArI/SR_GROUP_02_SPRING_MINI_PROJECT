@@ -1,6 +1,6 @@
-package com.example.springminiproject.model;
+package com.example.springminiproject.model.dto;
 
-import com.example.springminiproject.model.dto.response.AppUserResponse;
+import com.example.springminiproject.model.response.AppUserResponse;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

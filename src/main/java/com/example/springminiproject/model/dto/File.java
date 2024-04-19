@@ -1,4 +1,4 @@
-package com.example.springminiproject.model;
+package com.example.springminiproject.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

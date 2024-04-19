@@ -1,4 +1,4 @@
-package com.example.springminiproject.model.dto.request;
+package com.example.springminiproject.model.request;
 
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;

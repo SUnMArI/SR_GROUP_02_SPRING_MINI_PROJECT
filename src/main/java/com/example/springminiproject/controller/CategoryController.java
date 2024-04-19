@@ -1,16 +1,14 @@
 package com.example.springminiproject.controller;
 
-import com.example.springminiproject.model.Category;
-import com.example.springminiproject.model.dto.request.CategoryRequest;
-import com.example.springminiproject.model.dto.response.ApiResponse;
+import com.example.springminiproject.model.dto.Category;
+import com.example.springminiproject.model.request.CategoryRequest;
+import com.example.springminiproject.model.response.ApiResponse;
 import com.example.springminiproject.service.CategoryService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;

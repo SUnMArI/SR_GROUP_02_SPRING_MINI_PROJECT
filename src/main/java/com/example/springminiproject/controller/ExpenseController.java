@@ -1,8 +1,8 @@
 package com.example.springminiproject.controller;
 
-import com.example.springminiproject.model.Expense;
-import com.example.springminiproject.model.dto.request.ExpenseRequest;
-import com.example.springminiproject.model.dto.response.ApiResponse;
+import com.example.springminiproject.model.dto.Expense;
+import com.example.springminiproject.model.request.ExpenseRequest;
+import com.example.springminiproject.model.response.ApiResponse;
 import com.example.springminiproject.service.ExpenseService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;

@@ -1,8 +1,8 @@
 package com.example.springminiproject.repository;
 
 import com.example.springminiproject.exception.UUIDTypeHandler;
-import com.example.springminiproject.model.Category;
-import com.example.springminiproject.model.dto.request.CategoryRequest;
+import com.example.springminiproject.model.dto.Category;
+import com.example.springminiproject.model.request.CategoryRequest;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

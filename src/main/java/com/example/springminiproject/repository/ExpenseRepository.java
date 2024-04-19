@@ -1,10 +1,9 @@
 package com.example.springminiproject.repository;
 
 import com.example.springminiproject.exception.UUIDTypeHandler;
-import com.example.springminiproject.model.Expense;
-import com.example.springminiproject.model.dto.request.ExpenseRequest;
+import com.example.springminiproject.model.dto.Expense;
+import com.example.springminiproject.model.request.ExpenseRequest;
 import org.apache.ibatis.annotations.*;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.UUID;

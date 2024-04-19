@@ -1,4 +1,4 @@
-package com.example.springminiproject.model.dto.response;
+package com.example.springminiproject.model.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;

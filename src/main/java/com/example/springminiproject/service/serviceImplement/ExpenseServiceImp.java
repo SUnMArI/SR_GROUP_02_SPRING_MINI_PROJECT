@@ -1,10 +1,10 @@
 package com.example.springminiproject.service.serviceImplement;
 
 import com.example.springminiproject.exception.NotFoundException;
-import com.example.springminiproject.model.Category;
-import com.example.springminiproject.model.Expense;
-import com.example.springminiproject.model.User;
-import com.example.springminiproject.model.dto.request.ExpenseRequest;
+import com.example.springminiproject.model.dto.Category;
+import com.example.springminiproject.model.dto.Expense;
+import com.example.springminiproject.model.dto.User;
+import com.example.springminiproject.model.request.ExpenseRequest;
 import com.example.springminiproject.repository.AuthRepository;
 import com.example.springminiproject.repository.CategoryRepository;
 import com.example.springminiproject.repository.ExpenseRepository;
@@ -12,9 +12,6 @@ import com.example.springminiproject.service.ExpenseService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
-
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

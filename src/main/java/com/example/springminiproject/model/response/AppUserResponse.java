@@ -1,4 +1,4 @@
-package com.example.springminiproject.model.dto.response;
+package com.example.springminiproject.model.response;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
