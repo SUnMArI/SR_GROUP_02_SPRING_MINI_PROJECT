@@ -1,7 +1,7 @@
 package com.example.springminiproject.repository;
 
-import org.apache.ibatis.annotations.Mapper;
-@Mapper
-public interface AppFileRepository {
+import org.springframework.stereotype.Repository;
 
+@Repository
+public interface AppFileRepository {
 }

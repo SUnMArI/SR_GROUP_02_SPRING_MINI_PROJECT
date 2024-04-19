@@ -2,7 +2,10 @@ HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 
-
+# SRC #
+/src/main/resources/application.properties
+/src/main/resources/images/
+/src/main/resources/script/
 ### STS ###
 .apt_generated
 .classpath
@@ -30,3 +33,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+
+

@@ -26,6 +26,37 @@ public class GlobalException {
         problemDetail.setProperty("time", LocalDateTime.now());
         return problemDetail;
     }
+    @ExceptionHandler(BadRequestHandlerException.class)
+    public ProblemDetail handleNotFoundException(BadRequestHandlerException badRequestHandlerException){
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+                HttpStatus.BAD_REQUEST,
+                badRequestHandlerException.getMessage()
+        );
+        problemDetail.setTitle("Bad Request");
+        problemDetail.setProperty("time", LocalDateTime.now());
+        return problemDetail;
+    }
+
+    @ExceptionHandler(TimeoutOptCodeException.class)
+    public ProblemDetail handleNotFoundException(TimeoutOptCodeException timeoutOptCodeException){
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+                HttpStatus.REQUEST_TIMEOUT,
+                timeoutOptCodeException.getMessage()
+        );
+        problemDetail.setTitle("Timeout");
+        problemDetail.setProperty("time", LocalDateTime.now());
+        return problemDetail;
+    }
+    @ExceptionHandler(NoContentException.class)
+    public ProblemDetail handleNotFoundException(NoContentException noContentException){
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+                HttpStatus.NO_CONTENT,
+                noContentException.getMessage()
+        );
+        problemDetail.setTitle("Timeout");
+        problemDetail.setProperty("time", LocalDateTime.now());
+        return problemDetail;
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ProblemDetail handleMethodArgumentNotValidException(MethodArgumentNotValidException ex){
@@ -62,5 +93,16 @@ public class GlobalException {
         errorResponse.setMessage("Bad request body");
         errorResponse.setPath(request.getRequestURI());
         return ResponseEntity.badRequest().body(errorResponse);
+    }
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<Object> handleValidationException(com.example.springminiproject.exception.ValidationException ex){
+        Map<String, Object> response = new HashMap<>();
+        response.put("type", "about:blank");
+        response.put("title", "Bad Request");
+        response.put("status", ex.getStatus().value());
+        response.put("detail", ex.getDetail());
+        response.put("instance", "/api/v1/auth/register");
+        response.put("errors", ex.getErrors());
+        return ResponseEntity.badRequest().body(response);
     }
 }

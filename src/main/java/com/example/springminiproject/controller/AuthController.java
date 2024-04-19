@@ -2,9 +2,15 @@ package com.example.springminiproject.controller;
 
 import com.example.springminiproject.exception.NotFoundException;
 import com.example.springminiproject.jwt.JwtService;
-import com.example.springminiproject.model.dto.request.AuthRequest;
+import com.example.springminiproject.model.request.AppUserRequest;
+import com.example.springminiproject.model.request.AuthRequest;
 import com.example.springminiproject.model.response.AuthResponse;
+import com.example.springminiproject.model.request.AuthRequest;
+import com.example.springminiproject.model.response.AuthResponse;
+import com.example.springminiproject.model.request.ForgetPasswordRequest;
 import com.example.springminiproject.service.AuthService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,9 +21,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 @AllArgsConstructor
-@RequestMapping("api/v1/auth")
+@RequestMapping("/api/v1/auth")
 public class AuthController {
     private final AuthService authService;
     private final BCryptPasswordEncoder passwordEncoder;
@@ -48,6 +55,29 @@ public class AuthController {
         final String token = jwtService.generateToken(userDetails);
         AuthResponse authResponse = new AuthResponse(token);
         return ResponseEntity.ok(authResponse);
+    }
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody @Valid AppUserRequest appUserRequest) throws org.apache.ibatis.javassist.NotFoundException {
+        return ResponseEntity.ok(authService.register(appUserRequest));
+    }
+
+    @PutMapping("/verify")
+    public ResponseEntity<?> verifyCode( @Positive Integer otpCode){
+        authService.verifyOtpCode(otpCode);
+        return ResponseEntity.ok("Account verified");
+    }
+
+    @PutMapping("/forget")
+    public ResponseEntity<?> forgetPassword(String email, @RequestBody ForgetPasswordRequest forgetPasswordRequest){
+        authService.forgetPassword(email,forgetPasswordRequest);
+        return ResponseEntity.ok("Password was changed successful");
+    }
+
+
+    @PostMapping("/resend")
+    public ResponseEntity<?> resendCode(String email){
+        authService.resendCode(email);
+        return ResponseEntity.ok("Code have been sent");
     }
 }
 

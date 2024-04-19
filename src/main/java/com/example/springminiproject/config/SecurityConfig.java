@@ -1,6 +1,6 @@
 package com.example.springminiproject.config;
 
-import com.example.springminiproject.jwt.JwtAuthEntrypoint;
+import com.example.springminiproject.jwt.JwtAuthEntryPoint;
 import com.example.springminiproject.jwt.JwtAuthFilter;
 import com.example.springminiproject.service.AuthService;
 import lombok.AllArgsConstructor;
@@ -24,7 +24,7 @@ public class SecurityConfig {
     private final AuthService authService;
     private final BCryptPasswordEncoder passwordEncoder;
     private final JwtAuthFilter jwtAuthFilter;
-    private final JwtAuthEntrypoint jwtAuthEntrypoint;
+    private final JwtAuthEntryPoint jwtAuthEntrypoint;
     @Bean
     AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
@@ -41,8 +41,8 @@ public class SecurityConfig {
         http
                 .cors(withDefaults()).csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("api/v1/auth/**",
-                                "api/v1/categories/**",
+                        .requestMatchers("/api/v1/auth/**",
+                                "/api/v1/files/**",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"

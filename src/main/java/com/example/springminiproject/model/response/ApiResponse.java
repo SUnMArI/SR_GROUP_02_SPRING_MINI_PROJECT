@@ -1,20 +1,22 @@
 package com.example.springminiproject.model.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.web.PortResolverImpl;
 
 import java.time.LocalDateTime;
+
+@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class ApiResponse <T> {
+public class ApiResponse<T> {
     private String message;
-    private  T payload;
-    private HttpStatus status;
-    private LocalDateTime time;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private T payload;
+    private HttpStatus httpStatus;
+    private LocalDateTime dateFormat;
 }
