@@ -1,4 +1,4 @@
-package com.example.springminiproject.model.dto.response;
+package com.example.springminiproject.model.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
