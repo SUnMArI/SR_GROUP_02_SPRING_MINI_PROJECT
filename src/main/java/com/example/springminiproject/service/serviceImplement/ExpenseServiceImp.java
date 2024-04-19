@@ -18,6 +18,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -36,7 +37,6 @@ public class ExpenseServiceImp implements ExpenseService {
         String current_user = getUsernameOfCurrentUser();
         User user=authRepository.getUserByEmail(current_user);
         offset = (offset - 1) * limit;
-        getUsernameOfCurrentUser();
         return expenseRepository.getAllExpense(offset, limit, column, select,user.getUserId());
     }
 
@@ -44,7 +44,7 @@ public class ExpenseServiceImp implements ExpenseService {
     public Expense insertExpense(ExpenseRequest expenseRequest) {
         String current_user = getUsernameOfCurrentUser();
         User user=authRepository.getUserByEmail(current_user);
-        Category category = categoryRepository.getCategoryById(expenseRequest.getCategoryId());
+        Category category = categoryRepository.getCategoryById(expenseRequest.getCategoryId(),user.getUserId());
         if(category==null){
             throw new NotFoundException("Category ID "+expenseRequest.getCategoryId()+" Not found !!!");
         }
@@ -52,7 +52,7 @@ public class ExpenseServiceImp implements ExpenseService {
     }
 
     @Override
-    public Expense getExpenseById(Integer id) {
+    public Expense getExpenseById(UUID id) {
         String current_user = getUsernameOfCurrentUser();
         User user=authRepository.getUserByEmail(current_user);
         Expense expense = expenseRepository.getExpenseById(id,user.getUserId());
@@ -63,14 +63,14 @@ public class ExpenseServiceImp implements ExpenseService {
     }
 
     @Override
-    public Expense updateExpense(Integer id, ExpenseRequest expenseRequest) {
+    public Expense updateExpense(UUID id, ExpenseRequest expenseRequest) {
         String current_user = getUsernameOfCurrentUser();
         User user=authRepository.getUserByEmail(current_user);
         Expense expense = expenseRepository.getExpenseById(id, user.getUserId());
         if(expense==null){
             throw new NotFoundException("Expense ID "+id+" Not found !!!");
         }
-        Category category = categoryRepository.getCategoryById(expenseRequest.getCategoryId());
+        Category category = categoryRepository.getCategoryById(expenseRequest.getCategoryId(),user.getUserId());
         if(category==null){
             throw new NotFoundException("Category ID "+expenseRequest.getCategoryId()+" Not found !!!");
         }
@@ -79,7 +79,7 @@ public class ExpenseServiceImp implements ExpenseService {
     }
 
     @Override
-    public Boolean deleteExpense(Integer id) {
+    public Boolean deleteExpense(UUID id) {
         Boolean expense = expenseRepository.deleteExpense(id);
         if(!expense){
             throw new NotFoundException("Expense ID "+id+" Not found !!!");

@@ -1,18 +1,27 @@
 package com.example.springminiproject.model;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class User implements UserDetails {
-    private Integer userId;
+//    private Integer userId;
+@Id
+@GeneratedValue(generator = "uuid2")
+@GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+    private UUID userId;
     private String email;
     private String password;
     private String profileImage;

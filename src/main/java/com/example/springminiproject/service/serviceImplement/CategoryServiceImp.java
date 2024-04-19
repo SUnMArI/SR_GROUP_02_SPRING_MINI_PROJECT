@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @AllArgsConstructor
 @Service
@@ -26,13 +27,18 @@ public class CategoryServiceImp implements CategoryService {
     }
 
     @Override
-    public List<Category> getAllCategory() {
-        return categoryRepository.getAllCategory();
+    public List<Category> getAllCategory(Integer offset,Integer limit) {
+        offset = (offset - 1) * limit;
+        String current_user = getUsernameOfCurrentUser();
+        User user=authRepository.getUserByEmail(current_user);
+        return categoryRepository.getAllCategory(offset,limit,user.getUserId());
     }
 
     @Override
-    public Category getCategoryById(Integer id) {
-        Category category = categoryRepository.getCategoryById(id);
+    public Category getCategoryById(UUID id) {
+        String current_user = getUsernameOfCurrentUser();
+        User user=authRepository.getUserByEmail(current_user);
+        Category category = categoryRepository.getCategoryById(id,user.getUserId());
         if(category==null){
             throw new NotFoundException("Category ID "+id+" Not found");
         }
@@ -47,10 +53,10 @@ public class CategoryServiceImp implements CategoryService {
     }
 
     @Override
-    public Category updateCategory(Integer id, CategoryRequest categoryRequest) {
+    public Category updateCategory(UUID id, CategoryRequest categoryRequest) {
         String current_user = getUsernameOfCurrentUser();
         User user=authRepository.getUserByEmail(current_user);
-        Category category = categoryRepository.getCategoryById(id);
+        Category category = categoryRepository.getCategoryById(id,user.getUserId());
         if(category==null){
             throw new NotFoundException("Category ID "+id+" Not found");
         }
@@ -58,8 +64,10 @@ public class CategoryServiceImp implements CategoryService {
     }
 
     @Override
-    public Boolean deleteCategory(Integer id) {
-        Category category = categoryRepository.getCategoryById(id);
+    public Boolean deleteCategory(UUID id) {
+        String current_user = getUsernameOfCurrentUser();
+        User user=authRepository.getUserByEmail(current_user);
+        Category category = categoryRepository.getCategoryById(id,user.getUserId());
         if(category==null){
             throw new NotFoundException("Category ID "+id+" Not found");
         }

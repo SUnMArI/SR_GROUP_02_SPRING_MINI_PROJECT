@@ -1,13 +1,16 @@
 package com.example.springminiproject.model.dto.request;
 
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -25,6 +28,7 @@ public class ExpenseRequest {
     private LocalDateTime date;
 
     @NotNull
-    @Positive
-    private Integer categoryId;
+    @Id
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    private UUID categoryId;
 }

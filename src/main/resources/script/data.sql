@@ -10,7 +10,8 @@ CREATE TABLE categories(
     name VARCHAR(100),
     description VARCHAR(255),
     user_id UUID,
-    CONSTRAINT users_tb_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT users_tb_user_id FOREIGN KEY(user_id)
+        REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE opts (
@@ -20,7 +21,8 @@ CREATE TABLE opts (
     expiration TIMESTAMP NOT NULL,
     verify BOOLEAN DEFAULT FALSE,
     user_id UUID NOT NULL ,
-    CONSTRAINT users_tb_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT users_tb_user_id FOREIGN KEY(user_id)
+        REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE expenses (
@@ -29,9 +31,11 @@ CREATE TABLE expenses (
     description VARCHAR(255),
     date DATE NOT NULL,
     user_id UUID NOT NULL ,
-    CONSTRAINT users_tb_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE ,
+    CONSTRAINT users_tb_user_id FOREIGN KEY(user_id)
+        REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE ,
     category_id UUID NOT NULL ,
-    CONSTRAINT categories_tb_category_id FOREIGN KEY(category_id) REFERENCES categories(category_id) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT categories_tb_category_id FOREIGN KEY(category_id)
+        REFERENCES categories(category_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 -- for enable default value oy UUID function "uuid_generate_v4()"
 -- CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
