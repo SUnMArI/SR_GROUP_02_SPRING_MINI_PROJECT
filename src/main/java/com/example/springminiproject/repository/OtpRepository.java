@@ -30,4 +30,10 @@ public interface OtpRepository {
     INSERT INTO otps (otp_code,issued_at,expiration,verify,user_id) VALUES (#{otpCode},#{issuedAt},#{expiration}, #{b},CAST(#{userId} AS UUID))
 """)
     void insert(Integer otpCode,  LocalDateTime issuedAt, LocalDateTime expiration, boolean b, UUID userId);
+
+    @Select("""
+    SELECT verify FROM otps WHERE user_id=CAST(#{userId} AS UUID) AND verify = TRUE LIMIT 1
+""")
+
+    Otps checkVerifyByAuthID(UUID userId);
 }

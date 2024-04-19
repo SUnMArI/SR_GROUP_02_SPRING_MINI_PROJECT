@@ -6,8 +6,8 @@ CREATE TABLE users(
 );
 
 CREATE TABLE Otps (
-                      opt_id SERIAL  PRIMARY KEY,
-                      opt_code int ,
+                      otp_id SERIAL  PRIMARY KEY,
+                      otp_code int ,
                       issued_at TIMESTAMP  NOT NULL,
                       expriation TIMESTAMP NOT NULL,
                       verify BOOLEAN,

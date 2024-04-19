@@ -14,9 +14,9 @@ CREATE TABLE categories(
         REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE opts (
-    opt_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    opt_code VARCHAR(255) NOT NULL,
+CREATE TABLE otps (
+    otp_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    otp_code VARCHAR(255) NOT NULL,
     issued_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     expiration TIMESTAMP NOT NULL,
     verify BOOLEAN DEFAULT FALSE,

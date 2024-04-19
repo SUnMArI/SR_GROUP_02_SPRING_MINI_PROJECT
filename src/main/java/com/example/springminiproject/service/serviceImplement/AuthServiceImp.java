@@ -1,14 +1,10 @@
 package com.example.springminiproject.service.serviceImplement;
 
-import com.example.springminiproject.exception.NotFoundException;
-import com.example.springminiproject.exception.PasswordException;
-import com.example.springminiproject.exception.ValidationException;
+import com.example.springminiproject.exception.*;
 import com.example.springminiproject.model.dto.User;
 import com.example.springminiproject.model.request.AppUserRequest;
 import com.example.springminiproject.model.response.AppUserResponse;
-import com.example.springminiproject.exception.NoContentException;
 import com.example.springminiproject.exception.NotFoundException;
-import com.example.springminiproject.exception.TimeoutOptCodeException;
 import com.example.springminiproject.model.dto.Otps;
 import com.example.springminiproject.model.dto.User;
 import com.example.springminiproject.model.request.ForgetPasswordRequest;
@@ -18,6 +14,7 @@ import com.example.springminiproject.service.AuthService;
 import com.example.springminiproject.service.EmailService;
 import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;
+import org.apache.coyote.BadRequestException;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.mail.MailSendException;
@@ -49,7 +46,7 @@ public class AuthServiceImp implements AuthService {
             throw new NotFoundException("This email already register !!!");
         }
         if(!appUserRequest.getPassword().equals(appUserRequest.getConfirmPassword())){
-            throw new PasswordException("Your confirm password does not match with your password");
+            throw new BadRequestHandlerException("Your confirm password does not match with your password");
         }
         if(
                 appUserRequest.getProfileImage().contains(".jpg") ||
@@ -62,7 +59,7 @@ public class AuthServiceImp implements AuthService {
             ));
              AppUserResponse response=  authRepository.register(appUserRequest);
             Random random = new Random();
-            Integer otpCode = random.nextInt(999999);
+            Integer otpCode = random.nextInt(899999)+100000;
             try {
                 emailService.send(appUserRequest.getEmail(), String.valueOf(otpCode));
                 otpRepository.insert(otpCode,LocalDateTime.now(),LocalDateTime.now().plusMinutes(1),false,response.getUserId());
@@ -81,7 +78,10 @@ public class AuthServiceImp implements AuthService {
     @Override
     public UserDetails loadUserByUsername(String email) {
         User auth= authRepository.getUserByEmail(email);
-        System.out.println("auth"+auth.toString());
+        Otps otps = otpRepository.checkVerifyByAuthID(auth.getUserId());
+        if(otps == null){
+            throw new BadRequestHandlerException("Your account is not verify yet");
+        }
         return modelMapper.map(auth, User.class);
     }
 
@@ -92,7 +92,7 @@ public class AuthServiceImp implements AuthService {
             throw new NotFoundException("This email haven't register yet");
         }
         Random random = new Random();
-        Integer otpCode = random.nextInt(999999);
+        Integer otpCode = random.nextInt(899999)+100000;
         try {
             emailService.send(email,String.valueOf(otpCode));
             otpRepository.insert(otpCode,LocalDateTime.now(),LocalDateTime.now().plusMinutes(1),false,user.getUserId());
@@ -107,9 +107,9 @@ public class AuthServiceImp implements AuthService {
          Otps otps= otpRepository.findOtpByOtpCode(otpCode);
 
          if(otps==null){
-             throw new NotFoundException("Otp Code incorrect");
+             throw new NotFoundException("Invalid otp code");
          } else if (otps.getExpiration().isBefore(LocalDateTime.now())) {
-             throw new TimeoutOptCodeException("Otp Code already expire");
+             throw new TimeoutOptCodeException("Otp code already expired");
          }else {
              otpRepository.setVerify(true,otps.getOtpCode());
          }

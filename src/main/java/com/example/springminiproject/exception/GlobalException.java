@@ -26,16 +26,17 @@ public class GlobalException {
         problemDetail.setProperty("time", LocalDateTime.now());
         return problemDetail;
     }
-    @ExceptionHandler(PasswordException.class)
-    public ProblemDetail handlePasswordException(PasswordException passwordException){
+    @ExceptionHandler(BadRequestHandlerException.class)
+    public ProblemDetail handleNotFoundException(BadRequestHandlerException badRequestHandlerException){
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                 HttpStatus.BAD_REQUEST,
-                passwordException.getMessage()
+                badRequestHandlerException.getMessage()
         );
         problemDetail.setTitle("Bad Request");
         problemDetail.setProperty("time", LocalDateTime.now());
         return problemDetail;
     }
+
     @ExceptionHandler(TimeoutOptCodeException.class)
     public ProblemDetail handleNotFoundException(TimeoutOptCodeException timeoutOptCodeException){
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(

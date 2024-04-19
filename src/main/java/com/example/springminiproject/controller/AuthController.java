@@ -64,7 +64,7 @@ public class AuthController {
     @PutMapping("/verify")
     public ResponseEntity<?> verifyCode( @Positive Integer otpCode){
         authService.verifyOtpCode(otpCode);
-        return ResponseEntity.ok("Account was verified successful");
+        return ResponseEntity.ok("Account verified");
     }
 
     @PutMapping("/forget")
@@ -74,10 +74,10 @@ public class AuthController {
     }
 
 
-    @GetMapping("/resend")
+    @PostMapping("/resend")
     public ResponseEntity<?> resendCode(String email){
         authService.resendCode(email);
-        return ResponseEntity.ok("Code Already resend");
+        return ResponseEntity.ok("Code have been sent");
     }
 }
 
