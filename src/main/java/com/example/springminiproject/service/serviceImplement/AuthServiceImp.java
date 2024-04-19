@@ -1,5 +1,6 @@
 package com.example.springminiproject.service.serviceImplement;
 
+import com.example.springminiproject.exception.NotFoundException;
 import com.example.springminiproject.exception.PasswordException;
 import com.example.springminiproject.exception.ValidationException;
 import com.example.springminiproject.model.User;
@@ -28,6 +29,10 @@ public class AuthServiceImp implements AuthService {
     private final ModelMapper modelMapper;
     @Override
     public AppUserResponse register(AppUserRequest appUserRequest){
+        User user = authRepository.getUserByEmail(appUserRequest.getEmail());
+        if(user!=null){
+            throw new NotFoundException("This email already register !!!");
+        }
         if(!appUserRequest.getPassword().equals(appUserRequest.getConfirmPassword())){
             throw new PasswordException("Your confirm password does not match with your password");
         }
