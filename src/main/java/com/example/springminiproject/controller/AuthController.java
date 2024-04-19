@@ -5,8 +5,12 @@ import com.example.springminiproject.jwt.JwtService;
 import com.example.springminiproject.model.request.AppUserRequest;
 import com.example.springminiproject.model.request.AuthRequest;
 import com.example.springminiproject.model.response.AuthResponse;
+import com.example.springminiproject.model.request.AuthRequest;
+import com.example.springminiproject.model.response.AuthResponse;
+import com.example.springminiproject.model.request.ForgetPasswordRequest;
 import com.example.springminiproject.service.AuthService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +21,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/v1/auth")
@@ -25,6 +30,7 @@ public class AuthController {
     private final BCryptPasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+
     private void authenticate(String username, String password) throws Exception {
         try {
             UserDetails userApp = authService.loadUserByUsername(username);
@@ -41,6 +47,7 @@ public class AuthController {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
     }
+    //  Login
     @PostMapping("/login")
     public ResponseEntity<?> authenticate(@RequestBody AuthRequest authRequest) throws Exception {
         authenticate(authRequest.getEmail(), authRequest.getPassword());
@@ -52,6 +59,25 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody @Valid AppUserRequest appUserRequest) throws org.apache.ibatis.javassist.NotFoundException {
         return ResponseEntity.ok(authService.register(appUserRequest));
+    }
+
+    @PutMapping("/verify")
+    public ResponseEntity<?> verifyCode( @Positive Integer otpCode){
+        authService.verifyOtpCode(otpCode);
+        return ResponseEntity.ok("Account was verified successful");
+    }
+
+    @PutMapping("/forget")
+    public ResponseEntity<?> forgetPassword(String email, @RequestBody ForgetPasswordRequest forgetPasswordRequest){
+        authService.forgetPassword(email,forgetPasswordRequest);
+        return ResponseEntity.ok("Password was changed successful");
+    }
+
+
+    @GetMapping("/resend")
+    public ResponseEntity<?> resendCode(String email){
+        authService.resendCode(email);
+        return ResponseEntity.ok("Code Already resend");
     }
 }
 

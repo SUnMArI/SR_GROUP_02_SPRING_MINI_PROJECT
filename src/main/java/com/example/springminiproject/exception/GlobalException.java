@@ -36,6 +36,27 @@ public class GlobalException {
         problemDetail.setProperty("time", LocalDateTime.now());
         return problemDetail;
     }
+    @ExceptionHandler(TimeoutOptCodeException.class)
+    public ProblemDetail handleNotFoundException(TimeoutOptCodeException timeoutOptCodeException){
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+                HttpStatus.REQUEST_TIMEOUT,
+                timeoutOptCodeException.getMessage()
+        );
+        problemDetail.setTitle("Timeout");
+        problemDetail.setProperty("time", LocalDateTime.now());
+        return problemDetail;
+    }
+    @ExceptionHandler(NoContentException.class)
+    public ProblemDetail handleNotFoundException(NoContentException noContentException){
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+                HttpStatus.NO_CONTENT,
+                noContentException.getMessage()
+        );
+        problemDetail.setTitle("Timeout");
+        problemDetail.setProperty("time", LocalDateTime.now());
+        return problemDetail;
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ProblemDetail handleMethodArgumentNotValidException(MethodArgumentNotValidException ex){
         Map<String, String> errors = new HashMap<>();
@@ -46,7 +67,6 @@ public class GlobalException {
         problemDetail.setTitle("Bad Request");
         problemDetail.setProperty("Errors:",errors);
         return  problemDetail;
-
     }
     @ExceptionHandler(HandlerMethodValidationException.class)
     public ProblemDetail handleMethodValidationException(HandlerMethodValidationException ex){
@@ -62,6 +82,7 @@ public class GlobalException {
         problemDetail.setProperty("Errors:",errors);
         return  problemDetail;
     }
+
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<BadRequestBodyException> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex, HttpServletRequest request) {
         BadRequestBodyException errorResponse = new BadRequestBodyException();

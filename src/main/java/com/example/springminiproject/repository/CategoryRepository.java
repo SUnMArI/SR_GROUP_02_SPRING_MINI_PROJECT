@@ -4,6 +4,7 @@ import com.example.springminiproject.exception.UUIDTypeHandler;
 import com.example.springminiproject.model.dto.Category;
 import com.example.springminiproject.model.request.CategoryRequest;
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.UUID;

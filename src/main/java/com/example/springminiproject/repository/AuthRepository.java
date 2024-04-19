@@ -7,6 +7,11 @@ import com.example.springminiproject.model.response.AppUserResponse;
 import org.apache.ibatis.annotations.*;
 
 import java.util.UUID;
+import com.example.springminiproject.model.dto.User;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface AuthRepository {
@@ -26,6 +31,14 @@ public interface AuthRepository {
     """)
     @Result(property = "userId",column = "user_id")
     User getUserByEmail(String email);
+
+
+
+
+    @Update("""
+    UPDATE users SET password = #{confirmPassword} WHERE email = #{email}
+""")
+    void updatePassword(String email, String confirmPassword);
 
     @Select("""
         SELECT * FROM users WHERE user_id = CAST(#{userId} AS UUID)
